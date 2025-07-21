@@ -11,8 +11,8 @@ To use it yourself:
 
 1. Open the scale
 2. Rest your finger on the trackpad
-3. While mainting finger contact, put your object on the trackpad
-4. Try and put as little pressure on the trackpad while still maintaining contact. This is the weight of your object
+3. While maintaining finger contact, put your object on the trackpad
+4. Try to put as little pressure on the trackpad while still maintaining contact. This is the weight of your object
 
 ## How It Works
 
