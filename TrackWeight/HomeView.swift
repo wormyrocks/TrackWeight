@@ -54,7 +54,7 @@ struct HomeView: View {
                         )
                         LimitationRow(
                             icon: "cube.fill",
-                            text: "Metal objects may register as fingers"
+                            text: "Metal/magnetic objects may not work"
                         )
                     }
                 }
