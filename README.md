@@ -20,16 +20,6 @@ TrackWeight utilizes the [Open Multi-Touch Support library](https://github.com/K
 
 The key insight is that trackpad pressure events are only generated when there's capacitance detected on the trackpad surface - meaning your finger (or another conductive object) must be in contact with the trackpad. When this condition is met, the trackpad's Force Touch sensors provide precise pressure readings that can be calibrated and converted into weight measurements.
 
-### Calibration Process
-
-The weight calculations have been validated by:
-1. Placing the MacBook trackpad directly on top of a conventional digital scale
-2. Applying various known weights while maintaining finger contact with the trackpad
-3. Comparing and calibrating the pressure readings against the reference scale measurements
-4. Ensuring consistent accuracy across different weight ranges
-
-It turns out that the data we get from MultitouchSupport is already in grams!
-
 ## Requirements
 
 - **macOS 13.0+** (for Open Multi-Touch Support library compatibility)
@@ -39,10 +29,28 @@ It turns out that the data we get from MultitouchSupport is already in grams!
 
 ## Installation
 
+### Option 1: Homebrew (Recommended)
+
+```bash
+brew install --cask krishkrosh/apps/trackweight
+```
+
+### Option 2: Build from Source
+
 1. Clone this repository
 2. Open `TrackWeight.xcodeproj` in Xcode
 3. Disable App Sandbox in the project settings (required for trackpad access)
 4. Build and run the application
+
+### Calibration Process
+
+The weight calculations have been validated by:
+1. Placing the MacBook trackpad directly on top of a conventional digital scale
+2. Applying various known weights while maintaining finger contact with the trackpad
+3. Comparing and calibrating the pressure readings against the reference scale measurements
+4. Ensuring consistent accuracy across different weight ranges
+
+It turns out that the data we get from MultitouchSupport is already in grams!
 
 ## Limitations
 

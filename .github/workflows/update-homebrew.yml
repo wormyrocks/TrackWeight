@@ -1,0 +1,56 @@
+name: Update Homebrew Cask
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to update to'
+        required: true
+        type: string
+
+jobs:
+  update-cask:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout TrackWeight repo
+        uses: actions/checkout@v4
+        
+      - name: Checkout Homebrew tap repo
+        uses: actions/checkout@v4
+        with:
+          repository: krishkrosh/homebrew-apps
+          token: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+          path: homebrew-tap
+          
+      - name: Get version and commit info
+        id: version_info
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            VERSION="${{ github.event.release.tag_name }}"
+            COMMIT_SHA="${{ github.sha }}"
+          else
+            VERSION="${{ github.event.inputs.version }}"
+            COMMIT_SHA="${{ github.sha }}"
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "commit_sha=$COMMIT_SHA" >> $GITHUB_OUTPUT
+          
+      - name: Update cask file
+        run: |
+          VERSION="${{ steps.version_info.outputs.version }}"
+          COMMIT_SHA="${{ steps.version_info.outputs.commit_sha }}"
+          
+          # Update the cask file
+          sed -i "s/version \".*\"/version \"$VERSION\"/" homebrew-tap/Casks/trackweight.rb
+          sed -i "s/revision: \".*\"/revision: \"$COMMIT_SHA\"/" homebrew-tap/Casks/trackweight.rb
+          
+      - name: Commit and push changes
+        run: |
+          cd homebrew-tap
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add Casks/trackweight.rb
+          git commit -m "Update TrackWeight to ${{ steps.version_info.outputs.version }}" || echo "No changes to commit"
+          git push
