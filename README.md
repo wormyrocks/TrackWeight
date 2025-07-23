@@ -66,7 +66,9 @@ This project relies heavily on the excellent work by **Takuto Nakamura** ([@Kyom
 - Thread-safe async/await support for touch event streams
 - Touch state tracking and comprehensive sensor data
 
-**License**: MIT License - Copyright (c) 2019 TakutoNakamura
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Disclaimer
 
