@@ -25,13 +25,17 @@ struct TrackWeightView: View {
             case .waitingForItem:
                 InstructionView(
                     title: "Place your item",
-                    subtitle: "While keeping your finger steady on the trackpad, place the item you want to weigh",
-                    disclaimer: "Try not to move your reference finger",
+                    subtitle: "While maintaining contact with the trackpad, gently place your item. Use as little pressure as possible with your reference finger.",
+                    disclaimer: "Keep your finger still and apply minimal pressure",
                     icon: "cube.box"
                 )
                 
             case .weighing:
-                WeighingView(currentPressure: viewModel.currentPressure)
+                WeighingView(
+                    currentPressure: viewModel.currentPressure,
+                    isStabilizing: viewModel.isStabilizing,
+                    stabilityProgress: viewModel.stabilityProgress
+                )
                 
             case .result(let weight):
                 ResultView(weight: weight) {
@@ -95,11 +99,19 @@ struct FingerTimerView: View {
                 .font(.system(size: 28, weight: .bold, design: .rounded))
                 .foregroundStyle(.primary)
             
-            Text("Keep your finger on the trackpad for 3 seconds")
-                .font(.system(size: 16, weight: .medium))
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-                .frame(maxWidth: 300)
+            VStack(spacing: 8) {
+                Text("Keep your finger on the trackpad for 3 seconds")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: 300)
+                
+                Text("This establishes your baseline pressure")
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundStyle(.tertiary)
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: 300)
+            }
             
             // Bubble filling animation
             ZStack {
@@ -187,6 +199,8 @@ struct InstructionView: View {
 
 struct WeighingView: View {
     let currentPressure: Float
+    let isStabilizing: Bool
+    let stabilityProgress: Float
     
     var body: some View {
         VStack(spacing: 30) {
@@ -205,21 +219,52 @@ struct WeighingView: View {
                     .foregroundStyle(.secondary)
             }
             
-            VStack(spacing: 8) {
-                Text("The scale is actively measuring.")
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundStyle(.secondary)
+            VStack(spacing: 12) {
+                Text("Release pressure while maintaining contact")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundStyle(.orange)
                     .multilineTextAlignment(.center)
                 
-                Text("Slowly lift your finger when ready.")
+                Text("Keep your finger on the trackpad but apply as little pressure as possible")
                     .font(.system(size: 14, weight: .medium))
-                    .foregroundStyle(.tertiary)
+                    .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
+                    .frame(maxWidth: 350)
+                
+                if isStabilizing {
+                    VStack(spacing: 8) {
+                        Text("Stabilizing...")
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundStyle(.orange)
+                        
+                        // Progress bar
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 4)
+                                .fill(.orange.opacity(0.2))
+                                .frame(width: 200, height: 8)
+                            
+                            HStack {
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(.orange)
+                                    .frame(width: 200 * CGFloat(stabilityProgress), height: 8)
+                                    .animation(.linear(duration: 0.1), value: stabilityProgress)
+                                
+                                Spacer()
+                            }
+                        }
+                        .frame(width: 200)
+                        
+                        Text("\(Int((1 - stabilityProgress) * 2) + 1)s remaining")
+                            .font(.system(size: 12, weight: .medium, design: .monospaced))
+                            .foregroundStyle(.orange.opacity(0.8))
+                    }
+                }
             }
-            .frame(maxWidth: 300)
+            .frame(maxWidth: 350)
         }
     }
 }
+
 
 struct ResultView: View {
     let weight: Float
