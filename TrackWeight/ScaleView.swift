@@ -7,7 +7,6 @@ import SwiftUI
 
 struct ScaleView: View {
     @StateObject private var viewModel = ScaleViewModel()
-    @FocusState private var isFocused: Bool
     @State private var scaleCompression: CGFloat = 0
     @State private var displayShake = false
     @State private var particleOffset: CGFloat = 0
@@ -114,8 +113,8 @@ struct ScaleView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity) // Ensure the VStack takes full available space
                 }
             }
-//            .focusable()
-//            .focused($isFocused)
+            .focusable()
+            .focusEffectDisabled()
             .onKeyPress(.space) {
                 if viewModel.hasTouch {
                     viewModel.zeroScale()
@@ -129,7 +128,6 @@ struct ScaleView: View {
             }
             .onAppear {
                 viewModel.startListening()
-                isFocused = true
             }
             .onDisappear {
                 viewModel.stopListening()
