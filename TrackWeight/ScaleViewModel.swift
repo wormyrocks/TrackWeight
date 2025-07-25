@@ -16,6 +16,7 @@ final class ScaleViewModel: ObservableObject {
     
     private let manager = OMSManager.shared
     private var task: Task<Void, Never>?
+    private var rawWeight: Float = 0.0
     
     func startListening() {
         if manager.startListening() {
@@ -42,7 +43,7 @@ final class ScaleViewModel: ObservableObject {
     
     func zeroScale() {
         if hasTouch {
-            zeroOffset = currentWeight + zeroOffset
+            zeroOffset = rawWeight
         }
     }
     
@@ -53,7 +54,7 @@ final class ScaleViewModel: ObservableObject {
             zeroOffset = 0.0  // Reset zero when finger is lifted
         } else {
             hasTouch = true
-            let rawWeight = touchData.first?.pressure ?? 0.0
+            rawWeight = touchData.first?.pressure ?? 0.0
             currentWeight = max(0, rawWeight - zeroOffset)
         }
     }
