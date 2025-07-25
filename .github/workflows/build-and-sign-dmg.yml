@@ -114,12 +114,6 @@ jobs:
         
         This application transforms your MacBook's trackpad into a precise digital weighing scale.
         
-        CREDITS:
-        Original repository: https://github.com/KrishKrosh/TrackWeight
-        Created by: Krish Shah (@KrishKrosh)
-        
-        This build was created from a fork at: https://github.com/Rohithzr/TrackWeight
-        
         USAGE:
         1. Open the scale
         2. Rest your finger on the trackpad

@@ -29,19 +29,23 @@ The key insight is that trackpad pressure events are only generated when there's
 
 ## Installation
 
-### Option 1: Homebrew (Recommended)
+### Option 1: Download DMG (Recommended)
 
-```bash
-brew install --cask krishkrosh/apps/trackweight
-```
-
-### Option 2: Download DMG
-
-1. Go to the [Releases](https://github.com/Rohithzr/TrackWeight/releases) page
+1. Go to the [Releases](https://github.com/krishkrosh/TrackWeight/releases) page
 2. Download the latest TrackWeight DMG file
 3. Open the DMG and drag TrackWeight.app to your Applications folder
 4. Run the application (you may need to allow it in System Preferences > Security & Privacy for unsigned builds)
 
+### Option 2: Homebrew
+1. Ensure you have xcode installed
+```bash
+xcode-select --install
+```
+2. Install TrackWeight
+```bash
+brew install --cask krishkrosh/apps/trackweight
+```
+ 
 ### Option 3: Build from Source
 
 1. Clone this repository

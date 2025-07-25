@@ -19,6 +19,10 @@ env:
   SCHEME: TrackWeight
   CONFIGURATION: Release
 
+permissions:
+  contents: write
+  packages: write
+
 jobs:
   build-unsigned:
     runs-on: macos-latest
@@ -172,13 +176,7 @@ jobs:
           Transform your MacBook's trackpad into a precise digital weighing scale!
           
           **⚠️ This is an unsigned development build** - you may need to allow it in System Preferences.
-          
-          ## Credits
-          **Original repository:** https://github.com/KrishKrosh/TrackWeight  
-          **Created by:** Krish Shah (@KrishKrosh)
-          
-          This build is from the fork at https://github.com/Rohithzr/TrackWeight
-          
+      
           ## Installation
           1. Download the DMG file below
           2. Open the DMG and drag TrackWeight.app to your Applications folder
