@@ -97,15 +97,6 @@ This project relies heavily on the excellent work by **Takuto Nakamura** ([@Kyom
 - Thread-safe async/await support for touch event streams
 - Touch state tracking and comprehensive sensor data
 
-## Credits and Attribution
-
-**🙏 Full credit goes to the original TrackWeight project:**
-- **Original Repository**: https://github.com/KrishKrosh/TrackWeight
-- **Creator**: Krish Shah ([@KrishKrosh](https://github.com/KrishKrosh))
-- **Original Tweet**: https://x.com/KrishRShah/status/1947186835811193330
-
-This repository is a fork that adds automated DMG build and signing pipelines to make distribution easier. All core functionality and the brilliant idea of using trackpad sensors for weighing comes from the original project.
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
