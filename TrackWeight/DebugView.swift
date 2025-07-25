@@ -10,9 +10,29 @@ import SwiftUI
 
 struct DebugView: View {
     @StateObject var viewModel = ContentViewModel()
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         VStack {
+            // Header with close button
+            HStack {
+                Text("Debug Console")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                
+                Spacer()
+                
+                Button(action: {
+                    dismiss()
+                }) {
+                    Image(systemName: "xmark.circle.fill")
+                        .font(.title2)
+                        .foregroundColor(.secondary)
+                }
+                .buttonStyle(PlainButtonStyle())
+                .help("Close Debug Console")
+            }
+            .padding(.bottom)
 
             // Device Selector
             if !viewModel.availableDevices.isEmpty {
