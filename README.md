@@ -16,7 +16,7 @@ To use it yourself:
 
 ## How It Works
 
-TrackWeight utilizes the [Open Multi-Touch Support library](https://github.com/Kyome22/OpenMultitouchSupport) by [Takuto Nakamura](https://github.com/Kyome22) to gain private access to all mouse and trackpad events on macOS. This library provides detailed touch data including pressure readings that are normally inaccessible to standard applications.
+TrackWeight utilizes a custom fork of the [Open Multi-Touch Support library](https://github.com/krishkrosh/OpenMultitouchSupport) by [Takuto Nakamura](https://github.com/Kyome22) to gain private access to all mouse and trackpad events on macOS. This library provides detailed touch data including pressure readings that are normally inaccessible to standard applications.
 
 The key insight is that trackpad pressure events are only generated when there's capacitance detected on the trackpad surface - meaning your finger (or another conductive object) must be in contact with the trackpad. When this condition is met, the trackpad's Force Touch sensors provide precise pressure readings that can be calibrated and converted into weight measurements.
 
@@ -90,7 +90,7 @@ The application is built using:
 
 ### Open Multi-Touch Support Library
 
-This project relies heavily on the excellent work by **Takuto Nakamura** ([@Kyome22](https://github.com/Kyome22)) and the [Open Multi-Touch Support library](https://github.com/Kyome22/OpenMultitouchSupport). The library provides:
+This project relies heavily on the excellent work by **Takuto Nakamura** ([@Kyome22](https://github.com/Kyome22)) and the [Open Multi-Touch Support library](https://github.com/krishkrosh/OpenMultitouchSupport). The library provides:
 
 - Access to global multitouch events on macOS trackpads
 - Detailed touch data including position, pressure, angle, and density
