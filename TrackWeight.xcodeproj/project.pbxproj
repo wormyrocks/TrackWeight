@@ -12,7 +12,6 @@
 		77292A8C2B931954001CA3F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77292A8B2B931954001CA3F6 /* Assets.xcassets */; };
 		77292A8F2B931954001CA3F6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77292A8E2B931954001CA3F6 /* Preview Assets.xcassets */; };
 		77292A982B931D60001CA3F6 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77292A972B931D60001CA3F6 /* ContentViewModel.swift */; };
-		77292A9B2B931D7A001CA3F6 /* OpenMultitouchSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 77292A9A2B931D7A001CA3F6 /* OpenMultitouchSupport */; };
 		77292A9C2B931E01001CA3F6 /* WeighingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77292A9D2B931E01001CA3F6 /* WeighingState.swift */; };
 		77292A9E2B931E02001CA3F6 /* WeighingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77292A9F2B931E02001CA3F6 /* WeighingViewModel.swift */; };
 		77292AA02B931E03001CA3F6 /* TrackWeightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77292AA12B931E03001CA3F6 /* TrackWeightView.swift */; };
@@ -20,6 +19,7 @@
 		77292AA42B931E05001CA3F6 /* ScaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77292AA52B931E05001CA3F6 /* ScaleView.swift */; };
 		77292AA62B931E06001CA3F6 /* ScaleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77292AA72B931E06001CA3F6 /* ScaleViewModel.swift */; };
 		93A095122E33359600E1E1D1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A095112E33359600E1E1D1 /* SettingsView.swift */; };
+		93A095162E33624200E1E1D1 /* OpenMultitouchSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 93A095152E33624200E1E1D1 /* OpenMultitouchSupport */; };
 		93ABD0212E2E01E200668D4F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ABD0202E2E01E200668D4F /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
@@ -30,7 +30,6 @@
 		77292A8B2B931954001CA3F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		77292A8E2B931954001CA3F6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		77292A902B931954001CA3F6 /* TrackWeight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TrackWeight.entitlements; sourceTree = "<group>"; };
-		77292A962B931C84001CA3F6 /* OpenMultitouchSupport */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = OpenMultitouchSupport; path = .; sourceTree = "<group>"; };
 		77292A972B931D60001CA3F6 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		77292A9D2B931E01001CA3F6 /* WeighingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeighingState.swift; sourceTree = "<group>"; };
 		77292A9F2B931E02001CA3F6 /* WeighingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeighingViewModel.swift; sourceTree = "<group>"; };
@@ -47,7 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77292A9B2B931D7A001CA3F6 /* OpenMultitouchSupport in Frameworks */,
+				93A095162E33624200E1E1D1 /* OpenMultitouchSupport in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,7 +56,6 @@
 		77292A7B2B931953001CA3F6 = {
 			isa = PBXGroup;
 			children = (
-				77292A962B931C84001CA3F6 /* OpenMultitouchSupport */,
 				77292A862B931953001CA3F6 /* TrackWeight */,
 				77292A852B931953001CA3F6 /* Products */,
 				77292A992B931D7A001CA3F6 /* Frameworks */,
@@ -125,7 +123,7 @@
 			);
 			name = TrackWeight;
 			packageProductDependencies = (
-				77292A9A2B931D7A001CA3F6 /* OpenMultitouchSupport */,
+				93A095152E33624200E1E1D1 /* OpenMultitouchSupport */,
 			);
 			productName = TrackWeight;
 			productReference = 77292A842B931953001CA3F6 /* TrackWeight.app */;
@@ -155,6 +153,9 @@
 				Base,
 			);
 			mainGroup = 77292A7B2B931953001CA3F6;
+			packageReferences = (
+				93A095142E33624200E1E1D1 /* XCRemoteSwiftPackageReference "OpenMultitouchSupport" */,
+			);
 			productRefGroup = 77292A852B931953001CA3F6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -397,9 +398,21 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		93A095142E33624200E1E1D1 /* XCRemoteSwiftPackageReference "OpenMultitouchSupport" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/KrishKrosh/OpenMultitouchSupport.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
-		77292A9A2B931D7A001CA3F6 /* OpenMultitouchSupport */ = {
+		93A095152E33624200E1E1D1 /* OpenMultitouchSupport */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = 93A095142E33624200E1E1D1 /* XCRemoteSwiftPackageReference "OpenMultitouchSupport" */;
 			productName = OpenMultitouchSupport;
 		};
 /* End XCSwiftPackageProductDependency section */
