@@ -10,12 +10,12 @@ struct ScaleView: View {
     @State private var scaleCompression: CGFloat = 0
     @State private var displayShake = false
     @State private var particleOffset: CGFloat = 0
+    @State private var keyMonitor: Any?
     
     var body: some View {
-        if #available(macOS 14.0, *) {
-            GeometryReader { geometry in
-                ZStack {
-                    // Animated gradient background
+        GeometryReader { geometry in
+            ZStack {
+                // Animated gradient background
 //                    LinearGradient(
 //                        colors: [
 //                            Color(red: 0.95, green: 0.97, blue: 1.0),
@@ -25,115 +25,125 @@ struct ScaleView: View {
 //                        endPoint: .bottomTrailing
 //                    )
 //                    .ignoresSafeArea()
-                    
-                    VStack(spacing: geometry.size.height * 0.06) {
-                        // Title with subtitle directly underneath
-                        VStack(spacing: 8) {
-                            Text("Track Weight")
-                                .font(.system(size: min(max(geometry.size.width * 0.05, 24), 42), weight: .bold, design: .rounded))
-                                .foregroundStyle(
-                                    LinearGradient(
-                                        colors: [.blue, .teal, .cyan],
-                                        startPoint: .leading,
-                                        endPoint: .trailing
-                                    )
+                
+                VStack(spacing: geometry.size.height * 0.06) {
+                    // Title with subtitle directly underneath
+                    VStack(spacing: 8) {
+                        Text("Track Weight")
+                            .font(.system(size: min(max(geometry.size.width * 0.05, 24), 42), weight: .bold, design: .rounded))
+                            .foregroundStyle(
+                                LinearGradient(
+                                    colors: [.blue, .teal, .cyan],
+                                    startPoint: .leading,
+                                    endPoint: .trailing
                                 )
-                                .minimumScaleFactor(0.7)
-                                .lineLimit(1)
-                            
-                            Text("Place your finger on the trackpad to begin")
-                                .font(.system(size: min(max(geometry.size.width * 0.022, 14), 18), weight: .medium))
-                                .foregroundStyle(.gray)
-                                .multilineTextAlignment(.center)
-                                .frame(maxWidth: geometry.size.width * 0.8)
-                                .opacity(viewModel.hasTouch ? 0 : 1)
-                                .animation(.easeInOut(duration: 0.5), value: viewModel.hasTouch)
-                        }
-                        .frame(height: max(geometry.size.height * 0.15, 80)) // Fixed height for title + subtitle
-                        .frame(maxWidth: .infinity) // Ensure full width for centering
-                        
-                        Spacer()
-                        
-                        // Cartoon Digital Scale - responsive size
-                        HStack {
-                            Spacer()
-                            CartoonScaleView(
-                                weight: viewModel.currentWeight,
-                                hasTouch: viewModel.hasTouch,
-                                compression: $scaleCompression,
-                                displayShake: $displayShake,
-                                scaleFactor: min(geometry.size.width / 700, geometry.size.height / 500)
                             )
-                            Spacer()
-                        }
+                            .minimumScaleFactor(0.7)
+                            .lineLimit(1)
                         
-                        Spacer()
-                        
-                        // Fixed container for button to prevent jumping
-                        VStack(spacing: 10) {
-                            if viewModel.hasTouch {
-                                Text("Press spacebar or click to zero")
-                                    .font(.system(size: min(max(geometry.size.width * 0.018, 12), 16), weight: .medium))
-                                    .foregroundStyle(.gray)
-                            }
-                            
-                            Button(action: {
-                                viewModel.zeroScale()
-                            }) {
-                                HStack(spacing: 8) {
-                                    Image(systemName: "arrow.clockwise")
-                                        .font(.system(size: min(max(geometry.size.width * 0.02, 14), 18), weight: .semibold))
-                                    Text("Zero Scale")
-                                        .font(.system(size: min(max(geometry.size.width * 0.02, 14), 18), weight: .semibold))
-                                }
-                                .foregroundStyle(.white)
-                                .frame(width: min(max(geometry.size.width * 0.2, 140), 180), 
-                                       height: min(max(geometry.size.height * 0.08, 40), 55))
-                                .background(
-                                    RoundedRectangle(cornerRadius: 25)
-                                        .fill(
-                                            LinearGradient(
-                                                colors: [.blue, .teal],
-                                                startPoint: .leading,
-                                                endPoint: .trailing
-                                            )
-                                        )
-                                )
-                            }
-                            .buttonStyle(.plain)
-                            .opacity(viewModel.hasTouch ? 1 : 0)
-                            .scaleEffect(viewModel.hasTouch ? 1 : 0.8)
-                            .animation(.spring(response: 0.4, dampingFraction: 0.8), value: viewModel.hasTouch)
-                        }
-                        .frame(height: min(max(geometry.size.height * 0.15, 80), 100)) // Fixed space for button + instruction
-                        .frame(maxWidth: .infinity) // Ensure full width for centering
+                        Text("Place your finger on the trackpad to begin")
+                            .font(.system(size: min(max(geometry.size.width * 0.022, 14), 18), weight: .medium))
+                            .foregroundStyle(.gray)
+                            .multilineTextAlignment(.center)
+                            .frame(maxWidth: geometry.size.width * 0.8)
+                            .opacity(viewModel.hasTouch ? 0 : 1)
+                            .animation(.easeInOut(duration: 0.5), value: viewModel.hasTouch)
                     }
-                    .padding(.horizontal, max(geometry.size.width * 0.05, 20))
-                    .padding(.vertical, max(geometry.size.height * 0.03, 20))
-                    .frame(maxWidth: .infinity, maxHeight: .infinity) // Ensure the VStack takes full available space
+                    .frame(height: max(geometry.size.height * 0.15, 80)) // Fixed height for title + subtitle
+                    .frame(maxWidth: .infinity) // Ensure full width for centering
+                    
+                    Spacer()
+                    
+                    // Cartoon Digital Scale - responsive size
+                    HStack {
+                        Spacer()
+                        CartoonScaleView(
+                            weight: viewModel.currentWeight,
+                            hasTouch: viewModel.hasTouch,
+                            compression: $scaleCompression,
+                            displayShake: $displayShake,
+                            scaleFactor: min(geometry.size.width / 700, geometry.size.height / 500)
+                        )
+                        Spacer()
+                    }
+                    
+                    Spacer()
+                    
+                    // Fixed container for button to prevent jumping
+                    VStack(spacing: 10) {
+                        if viewModel.hasTouch {
+                            Text("Press spacebar or click to zero")
+                                .font(.system(size: min(max(geometry.size.width * 0.018, 12), 16), weight: .medium))
+                                .foregroundStyle(.gray)
+                        }
+                        
+                        Button(action: {
+                            viewModel.zeroScale()
+                        }) {
+                            HStack(spacing: 8) {
+                                Image(systemName: "arrow.clockwise")
+                                    .font(.system(size: min(max(geometry.size.width * 0.02, 14), 18), weight: .semibold))
+                                Text("Zero Scale")
+                                    .font(.system(size: min(max(geometry.size.width * 0.02, 14), 18), weight: .semibold))
+                            }
+                            .foregroundStyle(.white)
+                            .frame(width: min(max(geometry.size.width * 0.2, 140), 180), 
+                                   height: min(max(geometry.size.height * 0.08, 40), 55))
+                            .background(
+                                RoundedRectangle(cornerRadius: 25)
+                                    .fill(
+                                        LinearGradient(
+                                            colors: [.blue, .teal],
+                                            startPoint: .leading,
+                                            endPoint: .trailing
+                                        )
+                                    )
+                            )
+                        }
+                        .buttonStyle(.plain)
+                        .opacity(viewModel.hasTouch ? 1 : 0)
+                        .scaleEffect(viewModel.hasTouch ? 1 : 0.8)
+                        .animation(.spring(response: 0.4, dampingFraction: 0.8), value: viewModel.hasTouch)
+                    }
+                    .frame(height: min(max(geometry.size.height * 0.15, 80), 100)) // Fixed space for button + instruction
+                    .frame(maxWidth: .infinity) // Ensure full width for centering
                 }
+                .padding(.horizontal, max(geometry.size.width * 0.05, 20))
+                .padding(.vertical, max(geometry.size.height * 0.03, 20))
+                .frame(maxWidth: .infinity, maxHeight: .infinity) // Ensure the VStack takes full available space
             }
-            .focusable()
-            .focusEffectDisabled()
-            .onKeyPress(.space) {
-                if viewModel.hasTouch {
-                    viewModel.zeroScale()
-                }
-                return .handled
+        }
+        .focusable()
+        .modifier(FocusEffectModifier())
+        .onChange(of: viewModel.currentWeight) { newWeight in
+            withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                scaleCompression = CGFloat(min(newWeight / 100.0, 0.2))
             }
-            .onChange(of: viewModel.currentWeight) { _, newWeight in
-                withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
-                    scaleCompression = CGFloat(min(newWeight / 100.0, 0.2))
-                }
+        }
+        .onAppear {
+            viewModel.startListening()
+            setupKeyMonitoring()
+        }
+        .onDisappear {
+            viewModel.stopListening()
+            removeKeyMonitoring()
+        }
+    }
+    
+    private func setupKeyMonitoring() {
+        keyMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
+            // Space key code is 49
+            if event.keyCode == 49 && viewModel.hasTouch {
+                viewModel.zeroScale()
             }
-            .onAppear {
-                viewModel.startListening()
-            }
-            .onDisappear {
-                viewModel.stopListening()
-            }
-        } else {
-            // Fallback on earlier versions
+            return event
+        }
+    }
+    
+    private func removeKeyMonitoring() {
+        if let monitor = keyMonitor {
+            NSEvent.removeMonitor(monitor)
+            keyMonitor = nil
         }
     }
 }
@@ -262,6 +272,16 @@ struct CartoonScaleView: View {
             .offset(y: -5)
         }
         .animation(.spring(response: 0.4, dampingFraction: 0.8), value: compression)
+    }
+}
+
+struct FocusEffectModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(macOS 14.0, *) {
+            content.focusEffectDisabled()
+        } else {
+            content
+        }
     }
 }
 
