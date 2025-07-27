@@ -257,7 +257,7 @@ jobs:
           VERSION=$(date +%Y%m%d-%H%M%S)
         fi
         echo "version=$VERSION" >> $GITHUB_OUTPUT
-        echo "dmg_name=${{ env.APP_NAME }}-$VERSION.dmg" >> $GITHUB_OUTPUT
+        echo "dmg_name=${{ env.APP_NAME }}.dmg" >> $GITHUB_OUTPUT
     
     - name: Rename DMG with version
       run: |
