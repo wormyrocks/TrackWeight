@@ -37,13 +37,8 @@ The key insight is that trackpad pressure events are only generated when there's
 4. Run the application (you may need to allow it in System Preferences > Security & Privacy for unsigned builds)
 
 ### Option 2: Homebrew
-1. Ensure you have xcode installed
 ```bash
-xcode-select --install
-```
-2. Install TrackWeight
-```bash
-brew install --cask krishkrosh/apps/trackweight
+brew install --cask krishkrosh/apps/trackweight --force
 ```
  
 ### Option 3: Build from Source
