@@ -209,7 +209,7 @@ struct WeighingView: View {
                 .foregroundStyle(.primary)
             
             VStack(spacing: 10) {
-                Text(String(format: "%.1f", currentPressure))
+                Text(String(format: "%.3f", currentPressure))
                     .font(.system(size: 64, weight: .bold, design: .monospaced))
                     .foregroundStyle(.blue)
                     .animation(.easeInOut(duration: 0.2), value: currentPressure)
@@ -287,7 +287,7 @@ struct ResultView: View {
                 .foregroundStyle(.secondary)
             
             VStack(spacing: 5) {
-                Text(String(format: "%.1f", weight))
+                Text(String(format: "%.3f", weight))
                     .font(.system(size: 56, weight: .bold, design: .monospaced))
                     .foregroundStyle(.primary)
                 

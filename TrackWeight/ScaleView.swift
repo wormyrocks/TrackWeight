@@ -206,7 +206,7 @@ struct CartoonScaleView: View {
                 
                 // Weight display
                 VStack(spacing: 2) {
-                    Text(String(format: "%.1f", weight))
+                    Text(String(format: "%.3f", weight))
                         .font(.system(size: 32 * scaleFactor, weight: .bold, design: .monospaced))
                         .foregroundStyle(.white)
                         .shadow(color: .teal, radius: hasTouch ? 2 : 0)
